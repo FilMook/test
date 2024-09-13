@@ -36,6 +36,7 @@ let boxSpeed = -7;
 
 let VelocityY = 0;
 let Gravity = 0.28;
+let canJump = true; // Flag to control jumping
 
 let Retry = document.getElementById("RetryButton");
 let RetryDelay = false;
@@ -53,10 +54,7 @@ window.onload = function () {
     requestAnimationFrame(update);
 
     document.addEventListener("keydown", movePlayer);
-    document.addEventListener("touchstart", function (e) {
-        if (gameOver) return;
-        VelocityY = -10;
-    });
+    document.addEventListener("touchstart", touchJump);
 
     Retry.addEventListener("click", () => {
         if (RetryDelay) {
@@ -100,9 +98,11 @@ function update() {
     context.clearRect(0, 0, board.width, board.height);
     VelocityY += Gravity;
 
+    // Ensure the player cannot fall below the starting Y position
     player.y = Math.min(player.y + VelocityY, playerY);
     context.drawImage(playerImg, player.x, player.y, player.width, player.height);
 
+    // Check for collisions and game over condition
     for (let index = 0; index < boxesArray.length; index++) {
         let box = boxesArray[index];
         box.x += boxSpeed;
@@ -142,8 +142,21 @@ function movePlayer(e) {
         return;
     }
 
-    if (e.code === "Space" && player.y === playerY) {
+    if (e.code === "Space" && player.y === playerY && canJump) {
         VelocityY = -10;
+        canJump = false; // Prevent double jumping
+    }
+}
+
+function touchJump(e) {
+    if (gameOver) {
+        return;
+    }
+
+    // Check if touch is on the screen and player can jump
+    if (player.y === playerY && canJump) {
+        VelocityY = -10;
+        canJump = false; // Prevent double jumping
     }
 }
 
@@ -186,6 +199,7 @@ function gameReset() {
             boxesArray = [];
             VelocityY = 0; 
             player.y = playerY; 
+            canJump = true; // Reset jump flag
 
             createBoxWithRandomInterval();
         }, 500);
