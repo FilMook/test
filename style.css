@@ -1,0 +1,56 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.title {
+    font-size: 5vw; /* Responsive font size */
+    background-color: rgb(247, 131, 237);
+    border: 2px solid black;
+    margin-bottom: 20px;
+}
+
+.Board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#Board {
+    background-image: url(https://kawaiihoshi.com/wp-content/uploads/2022/08/sanrio-hello-kitty-tulips-wallpaper-scaled.jpeg);
+    background-size: cover;
+    border: 5px solid black;
+    max-width: 100%;
+    height: auto;
+}
+
+.Retry {
+    margin: 20px 0;
+}
+
+.RetryButton {
+    padding: 10px 20px;
+    font-size: 4vw; /* Responsive button size */
+    background-color: #ff00bf;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.RetryButton:hover {
+    background-color: #d32f2f;
+}
+
+.start-over {
+    display: block;
+    margin: 20px;
+    font-size: 4vw; /* Responsive link size */
+    color: #007bff;
+}
